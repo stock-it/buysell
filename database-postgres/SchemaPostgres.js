@@ -8,6 +8,7 @@ const sequelize = new Sequelize('stocks', POSTGRES_USER, POSTGRES_PASSWORD, {
 });
 class Stock extends Sequelize.Model {}
 Stock.init({
+    id: {type: Sequelize.INTEGER, primaryKey: true },
     ask_price: {
       type: Sequelize.DECIMAL(12, 6),
       allowNull: false,
@@ -50,3 +51,12 @@ sequelize.sync({ force: true })
     .then(() => console.log('done'))
       .catch((error) => console.error('Something went wrong:,', error))
   );
+
+//   sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connected to Postgres through Sequelize')
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
