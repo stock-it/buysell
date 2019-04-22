@@ -16,15 +16,16 @@ const db = require('../index.js');
 mongoose.Promise = global.Promise;
 
 const stockSchema = new mongoose.Schema({
-  id: String,
+  ask_price: Number,
   ask_size: Number,
   bid_price: Number,
+  bid_size: Number,
   last_extended_hours_trade_price: Number,
   last_trade_price: Number,
   symbol: { type: String, unique: true },
-  quantity: Number, 
-  timestamps: true,
+  quantity: Number,
 });
 
-const Stocks = mongoose.model('Stocks', stockSchema);
-module.exports = Stocks;
+const Stock = mongoose.model('Stock', stockSchema);
+module.exports = Stock;
+
