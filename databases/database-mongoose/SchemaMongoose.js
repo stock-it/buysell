@@ -11,7 +11,7 @@ quantity INT NOT NULL
 */
 const mongoose = require('mongoose');
 // eslint-disable-next-line no-unused-vars
-const db = require('./index.js');
+const db = require('../index.js');
 
 mongoose.Promise = global.Promise;
 
@@ -23,7 +23,6 @@ const stockSchema = new mongoose.Schema({
   last_trade_price: Number,
   symbol: { type: String, unique: true },
   quantity: Number, 
-  last_extended_hours_trade_price: Number,
   timestamps: true,
 });
 

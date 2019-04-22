@@ -22,7 +22,7 @@ const promise = require('bluebird');
 const pg = require('pg');
 const conString = 'postgres://me:password@localhost:5432/stocks';
 const options = {
-  promiseLib: promise
+  promiseLib: promise,
 }; 
 const pgp = require('pg-promise')(options);
 const db = pgp(conString);
