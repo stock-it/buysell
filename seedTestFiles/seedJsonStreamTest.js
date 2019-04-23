@@ -68,10 +68,10 @@ const writeContent = round => new Promise(((resolve, reject) => {
       idCounter++;
     }
   }
-  const roomsDataStream = fs.createWriteStream(seedOutputPath, { flags: 'a' });
-  roomsDataStream.write(`${finalArray}`);
-  roomsDataStream.end();
-  roomsDataStream.on('finish', () => {
+  const stockDataStream = fs.createWriteStream(seedOutputPath, { flags: 'a' });
+  stockDataStream.write(`${finalArray}`);
+  stockDataStream.end();
+  stockDataStream.on('finish', () => {
     console.log('wrote contents');
     resolve();
   });
