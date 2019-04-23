@@ -7,7 +7,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 1000;
+const numToseed = 100000;
 
 
 const mapTicker = () => {
@@ -24,8 +24,6 @@ const mapTicker = () => {
   }
   return mapTicker();
 };
-
-
 
 const createFakeStock = () => ({
   ask_price: faker.finance.amount(100, 1500, 6),

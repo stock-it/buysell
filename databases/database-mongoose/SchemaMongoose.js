@@ -22,7 +22,7 @@ const stockSchema = new mongoose.Schema({
   bid_size: Number,
   last_extended_hours_trade_price: Number,
   last_trade_price: Number,
-  symbol: { type: String, unique: true },
+  symbol: String,
   quantity: Number,
 });
 

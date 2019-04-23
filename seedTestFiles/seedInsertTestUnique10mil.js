@@ -1,8 +1,11 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-console */
 const faker = require('faker');
 const mongoose = require('mongoose');
-const Stock = require('../databases/database-mongoose/SchemaMongoose');
+// const fs = require('fs');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/stocks');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/testSeed', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', (err) => {
   console.log('error connecting', err);
@@ -11,15 +14,7 @@ db.once('open', () => {
   console.log('mongoose connected');
 });
 
-
-let idCounter = 1;
-const finalArray = [];
-let insertedArray;
-const noDocsInSet = 1000000;
-let round = 1;
 const companies = new Set();
-
-
 const mapTicker = () => {
   let company = '';
   const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -36,10 +31,17 @@ const mapTicker = () => {
   return mapTicker();
 };
 
+let idCounter = 1;
+let finalArray;
+const noDocsInSet = 1000;
+let round = 1;
+
 const randoGenArrayFactory = () => {
+  finalArray = [];
   let i = 0;
   while (i < noDocsInSet) {
     const stockDetail = {
+      _id: new mongoose.Types.ObjectId(),
       ask_price: faker.finance.amount(100, 1500, 6),
       ask_size: faker.random.number({ min: 100, max: 500 }),
       bid_price: faker.finance.amount(100, 2000, 6),
@@ -51,37 +53,32 @@ const randoGenArrayFactory = () => {
     };
 
     finalArray.push(stockDetail);
+    // eslint-disable-next-line no-plusplus
+    idCounter++;
+    // eslint-disable-next-line no-plusplus
     i++;
   }
 };
 
 
-const parseFactory = () => new Promise(((resolve, reject) => {
-  let i = 0;
-  insertedArray = JSON.parse(JSON.stringify(finalArray.slice()));
-  while (i < noDocsInSet) {
-    insertedArray[i].id = idCounter++;
-    i++;
-  }
-  resolve();
-}));
-
-const insertionFactory = () => new Promise(((resolve, reject) => {
-  db.collection('stocks').insertMany(insertedArray, (error, doc) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(`Insertion success - Round ${round}`);
-      resolve();
-    }
-  });
-}));
+const insertionFactory = () => {
+  randoGenArrayFactory();
+  // eslint-disable-next-line no-unused-vars
+  return new Promise(((resolve, reject) => {
+    db.collection('stocks').insertMany(finalArray, (error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Insertion success - Round ${round}`);
+        resolve();
+      }
+    });
+  }));
+};
 
 const doEverything = async () => {
   const startTime = Date.now();
-  randoGenArrayFactory();
   while (round < 10001) {
-    await parseFactory();
     await insertionFactory();
     round++;
   }
