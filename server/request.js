@@ -1,6 +1,6 @@
 // This module is being mocked in __mocks__/request.js
-const Stock = require('../database-mysqldb/Stocks');
-const Account = require('../database-mysqldb/Accounts');
+const Stock = require('../database-postgres/Stocks');
+const Account = require('../database-postgres/Accounts');
 
 module.exports.requestStock = stockSymbol => Stock.findOne({ where: { symbol: stockSymbol } });
 

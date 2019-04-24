@@ -7,7 +7,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 100000;
+const numToseed = 1000000;
 
 
 const mapTicker = () => {
