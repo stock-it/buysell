@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('./index.js');
 
-const Stock = db.define('stocks', {
+const Stocks = db.define('stocks', {
   ask_price: {
     type: Sequelize.DECIMAL(12, 6),
     allowNull: true,
@@ -39,4 +39,4 @@ const Stock = db.define('stocks', {
   timestamps: false,
 });
 
-module.exports = Stock;
+module.exports = Stocks;
