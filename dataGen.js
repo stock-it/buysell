@@ -7,7 +7,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 100000;
+const numToseed = 1000;
 
 
 const mapTicker = () => {
@@ -72,5 +72,3 @@ function writeRecords(writer, encoding, callback) {
 }
 
 writeRecords(file, 'utf8', () => { console.error('Done'); });
-
-
