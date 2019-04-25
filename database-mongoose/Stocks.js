@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // eslint-disable-next-line no-unused-vars
-const db = require('../index.js');
+const db = require('./index.js');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 mongoose.Promise = global.Promise;
 
@@ -15,5 +16,12 @@ const stockSchema = new mongoose.Schema({
   quantity: Number,
 });
 
+// add createdAt and updateAt timestamps
+stockSchema.set('timestamps', true);
+
 const Stock = mongoose.model('Stock', stockSchema);
+
+// add auto-incrementing id to imporve querying times
+stockSchema.plugin(AutoIncrement, {inc_field: 'id'});
+
 module.exports = Stock;

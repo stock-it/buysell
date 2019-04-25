@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 // const fs = require('fs');
 
 
-mongoose.connect('mongodb://localhost/testSeed', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/stocks2', { useNewUrlParser: true });
 
 
 const db = mongoose.connection;
@@ -21,7 +21,7 @@ db.once('open', () => {
 
 // run this file using npm run seed
 
-const stream = fs.createReadStream('seedPG.csv');
+const stream = fs.createReadStream('./mongooseTest.csv');
 console.log('Inserting into Mongo.....please wait.....');
 console.time('finished seeding');
 csv
@@ -36,4 +36,7 @@ csv
             err ? console.log('Mongo Insert Malfunctioned', err) : console.timeEnd('finished seeding') //about 235 seconds
          });
  });
+
+
+
 
