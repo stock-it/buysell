@@ -1,7 +1,7 @@
 const seeder = require('mongoose-seed-csv');
 const Stock = require('./SchemaMongoose');
 
-seeder.connect('mongodb://localhost/stocks', () => {
+seeder.connect('mongodb://localhost/stocks2', () => {
   // Load Mongoose models
   seeder.loadModels([
     // './SchemaMongoose.js',
@@ -11,7 +11,7 @@ seeder.connect('mongodb://localhost/stocks', () => {
   seeder.populateFromCSV(
     [
       './databases/database-mongoose/mongooseSeedTest.csv',
-      { path: './databases/database-mongoose/mapMongoose.csv', model: 'Map', parseOptions: { columns: true } },
+      {path: './databases/database-mongoose/SchemaMongoose.js', model: Stock, parseOptions: { columns: true } },
     ],
     { columns: true, parseDeep: true },
     () => {

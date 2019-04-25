@@ -1,17 +1,7 @@
-/*
-id SERIAL PRIMARY KEY
-ask_price INT NOT NULL
-ask_size INT NOT NULL
-bid_price INT NOT NULL
-bid_size INT NOT NULL
-last_extended_hours_trade_price INT NOT NULL
-last_trade_price INT NOT NULL
-symbol VARCHAR(5) NOT NULL
-quantity INT NOT NULL
-*/
 const mongoose = require('mongoose');
 // eslint-disable-next-line no-unused-vars
 const db = require('../index.js');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 mongoose.Promise = global.Promise;
 
@@ -26,6 +16,12 @@ const stockSchema = new mongoose.Schema({
   quantity: Number,
 });
 
-const Stock = mongoose.model('Stock', stockSchema);
-module.exports = Stock;
+// add createdAt and updateAt timestamps
+stockSchema.set('timestamps', true);
 
+const Stock = mongoose.model('Stock', stockSchema);
+
+// add auto-incrementing id to imporve querying times
+stockSchema.plugin(AutoIncrement, { inc_field: 'id' });
+
+module.exports = Stock;
