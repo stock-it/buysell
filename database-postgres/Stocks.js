@@ -39,4 +39,5 @@ const Stocks = db.define('stocks', {
   timestamps: false,
 });
 
+
 module.exports = Stocks;
