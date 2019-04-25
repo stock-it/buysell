@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stocks';
+const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stocks2';
 
 mongoose.connect(dbUri);
 const db = mongoose.connection;

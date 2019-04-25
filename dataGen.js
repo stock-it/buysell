@@ -1,76 +1,45 @@
 const faker = require('faker');
-const file = require('fs').createWriteStream('./fakeData.csv');
+const fs = require('fs');
+const csv = require("fast-csv");
 
-const date = new Date().toLocaleTimeString();
+//run this file using npm run create
 
-const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// const randomDate = () => {
+//   let randomDay = Math.floor(Math.random() * 30) + 1
+//   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//   let randomYear = Math.floor(Math.random() * (2019-1989)) + 1989;
+//   let randomMonth = months[Math.floor(Math.random() * 12) + 1];
+//   return randomDay + ' ' + randomMonth + ' ' + randomYear
+// }
+// date: randomDate();
 
-const companies = new Set();
 
-const numToseed = 100000;
-
-
-const mapTicker = () => {
-  let company = '';
-  for (let i = 0; i <= 4; i++) {
-    company += tickerChars.charAt(Math.floor(Math.random() * tickerChars.length));
+const data = [];
+console.log('generating data.....')
+//makes 10 million datas
+console.time('data generated in')
+for (let i = 0; i <= 10000000; i++) { 
+  const stock = {
+    ask_price: faker.finance.amount(100, 1500, 6),
+    ask_size: faker.random.number({ min: 100, max: 500 }),
+    bid_price: faker.finance.amount(100, 2000, 6),
+    bid_size: faker.random.number({ min: 100, max: 500 }),
+    last_extended_hours_trade_price: faker.finance.amount(100, 2000, 6),
+    last_trade_price: faker.finance.amount(100, 2000, 6),
+    symbol: mapTicker(),
+    quantity: faker.finance.amount(1, 500, 4),
   }
-  if (!companies.has(company)) {
-    if (company === undefined) {
-      return assignCompanies();
-    }
-    companies.add(company);
-    return company;
-  }
-  return mapTicker();
-};
-
-const createFakeStock = () => ({
-  ask_price: faker.finance.amount(100, 1500, 6),
-  ask_size: faker.random.number({ min: 100, max: 500 }),
-  bid_price: faker.finance.amount(100, 2000, 6),
-  bid_size: faker.random.number({ min: 100, max: 500 }),
-  last_extended_hours_trade_price: faker.finance.amount(100, 2000, 6),
-  last_trade_price: faker.finance.amount(100, 2000, 6),
-  symbol: mapTicker(),
-  quantity: faker.finance.amount(1, 500, 4),
-});
-
-const generateStocks = () => createFakeStock();
-
-const convertArrayofObjectsToCSV = (data, count) => {
-  let result = '';
-  if (count === numToseed) {
-    result += 'ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity\n';
-  }
-  for (let property in data) {
-    result += `${data[property]  },`;
-  }
-  result = result.slice(0, -1);
-  return `${result  }\n`;
-};
-
-
-function writeRecords(writer, encoding, callback) {
-  let i = numToseed;
-  write();
-  function write() {
-    let ok = true;
-    do {
-      const stockData = (convertArrayofObjectsToCSV(generateStocks(), i));
-      i--;
-      if (i === 0) {
-        process.stdout.write(stockData, encoding, callback);
-      } else {
-        ok = process.stdout.write(stockData, encoding);
-      }
-    } while (i > 0 && ok);
-    if (i > 0) {
-      process.stdout.once('drain', write);
-    }
-  }
+  data.push(stock);
 }
 
-writeRecords(file, 'utf8', () => { console.error('Done'); });
-
-
+console.log(data.length)
+console.timeEnd('data generated in') //about 35 seconds
+console.log('creating csv file....')
+console.time('file created in')
+//creates csv file using data
+//data is array of 10 million object items
+var ws = fs.createWriteStream("data.csv");
+csv
+   .write(data, {headers: true})
+   .pipe(ws)
+    ws.on("finish", () => console.timeEnd('file created in')) 
