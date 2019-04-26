@@ -7,7 +7,7 @@ const exec = require('child_process').exec;
 let startTime;
 let importStartTime;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonStocks');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/BRAD');
 const db = mongoose.connection;
 db.on('error', (err) => {
   console.log('error connecting', err);
@@ -28,7 +28,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 10;
+const numToseed = 100;
 
 const mapTicker = () => {
   let company = '';
@@ -44,9 +44,10 @@ const mapTicker = () => {
   }
   return mapTicker();
 };
-
+let count = 1;
 while (idCounter < uniqueRecords) {
   const stockDetail = {
+    id: count++,
     ask_price: faker.finance.amount(100, 1500, 6),
     ask_size: faker.random.number({ min: 100, max: 500 }),
     bid_price: faker.finance.amount(100, 2000, 6),
@@ -110,7 +111,7 @@ const writeCloseBracket = () => new Promise(((resolve, reject) => {
 }));
 
 const importFactory = () => {
-  const command = `mongoimport --db jsonStocks --collection stocks --type json --file ${seedOutputPath} --jsonArray --numInsertionWorkers 2`;
+  const command = `mongoimport --db BRAD --collection stocks --type json --file ${seedOutputPath} --jsonArray --numInsertionWorkers 2`;
   console.log(`Time to Generate + Export: \x1b[32m${(Date.now() - startTime) / 1000}s\x1b[0m`);
   console.log('starting to import');
   importStartTime = Date.now();
