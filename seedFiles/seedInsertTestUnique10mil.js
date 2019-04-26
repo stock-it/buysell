@@ -59,10 +59,15 @@ const randoGenArrayFactory = () => {
     i++;
   }
 };
+const stream = () => {
+let fileStream = fs.createReadStream('database-mongoose/10Million.csv');
+fileStream.pipe('seedFiles/sampleTESTSEED.csv');
+fileStream.on('end', () => console.timeEnd('finished seeding Postgres with 10 Million Records'));
 
+};
 
 const insertionFactory = () => {
-  randoGenArrayFactory();
+  
   // eslint-disable-next-line no-unused-vars
   return new Promise(((resolve, reject) => {
     db.collection('stocks').insertMany(finalArray, (error) => {

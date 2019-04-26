@@ -19,12 +19,12 @@ mong.Stock.findOne({_id: '100000'}, (err, docu) => {
 
 
 console.time('time')
-mong.Stock.findOne({likes: 78106}, (err, docu) => {
+mong.Stock.findOne({}, (err, docu) => {
 	err ? console.log(err) : console.log(docu);console.timeEnd('time')
 });
 
 console.time('time')
-mong.Stock.find({artist: "Americo_Jacobs"}, (err, docu) => {
+mong.Stock.find({}, (err, docu) => {
 	err ? console.log(err) : console.log(docu);console.timeEnd('time')
 });
 

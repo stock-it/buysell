@@ -8,7 +8,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 10;
+const numToseed = 1000000;
 
 const mapTicker = () => {
     let company = '';
@@ -29,7 +29,7 @@ const data = [];
 console.log('generating data.....')
 //makes 10 million datas
 console.time('data generated in')
-for (let i = 0; i <= 10000000; i++) { 
+for (let i = 0; i <= numToseed; i++) { 
   const stock = {
     ask_price: faker.finance.amount(100, 1500, 6),
     ask_size: faker.random.number({ min: 100, max: 500 }),
@@ -49,8 +49,27 @@ console.log('creating csv file....')
 console.time('file created in')
 //creates csv file using data
 //data is array of 10 million object items
-var ws = fs.createWriteStream("mongoData.csv");
+var ws = fs.createWriteStream("10Million.csv");
 csv
    .write(data, {headers: true})
    .pipe(ws)
     ws.on("finish", () => console.timeEnd('file created in')) //abount 93 seconds
+
+let count = 1;
+let stocks = [];
+const stream = fs.createReadStream('database-mongoose/10Million.csv');
+console.log('Inserting into Mongo.....please wait.....');
+console.time('finished seeding');
+csv
+  .fromStream(stream, { headers: true })
+  .on('data', (data) => {
+         data['_id'] = (count++).toString()
+
+         stocks.push(data);
+ })
+  .on('end', () => {
+    	mong.stocks.insertMany(stocks, (err, documents) => {
+            err ? console.log('Mongo Insert Malfunctioned', err) : console.timeEnd('finished seeding') //about 235 seconds
+         });
+ });
+

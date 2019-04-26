@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 const faker = require('faker');
 const mongoose = require('mongoose');
 const fs = require('fs');
@@ -7,7 +6,8 @@ const exec = require('child_process').exec;
 let startTime;
 let importStartTime;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonStocks');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/stocks');
 const db = mongoose.connection;
 db.on('error', (err) => {
   console.log('error connecting', err);
@@ -18,7 +18,7 @@ db.once('open', () => {
 
 const uniqueRecords = 1001;
 let idCounter = 1;
-const seedOutputPath = `${__dirname}/seedFile/testSeed.json`;
+const seedOutputPath = `${__dirname}/testSeed.json`;
 const finalArray = [];
 
 while (idCounter < uniqueRecords) {
@@ -32,17 +32,21 @@ while (idCounter < uniqueRecords) {
     symbol: String,
     quantity: Number,
   };
+
   const stringStockDetail = JSON.stringify(stockDetail);
-  finalArray.push(stringStockDetail);
+  finalArray.push(stockDetail);
+
   idCounter++;
 }
 
 
-const outputLoc = 'databases/seedFile/testSeed.json';
+const outputLoc = `${__dirname}/testSeed.json`;
+
 
 const writeOpenBracket = () => new Promise(((resolve, reject) => {
   fs.writeFile(outputLoc, '[', (err) => {
     if (err) throw err;
+    console.log('wrote open brackets');
     resolve();
   });
 }));
@@ -50,6 +54,7 @@ const writeOpenBracket = () => new Promise(((resolve, reject) => {
 const writeComma = () => new Promise(((resolve, reject) => {
   fs.appendFile(outputLoc, ',', (err) => {
     if (err) throw err;
+    console.log('wrote comma');
     resolve();
   });
 }));
@@ -63,9 +68,11 @@ const writeContent = round => new Promise(((resolve, reject) => {
       idCounter++;
     }
   }
-
-  fs.appendFile(outputLoc, finalArray, (err) => {
-    if (err) throw err;
+  const stockDataStream = fs.createWriteStream(seedOutputPath, { flags: 'a' });
+  stockDataStream.write(`${finalArray}`);
+  stockDataStream.end();
+  stockDataStream.on('finish', () => {
+    console.log('wrote contents');
     resolve();
   });
 }));
@@ -80,13 +87,14 @@ const writeContents = async () => {
 
 const writeCloseBracket = () => new Promise(((resolve, reject) => {
   fs.appendFile(outputLoc, ']', (err) => {
+    console.log('wrote close bracket');
     if (err) throw err;
     resolve();
   });
 }));
 
 const importFactory = () => {
-  const command = `mongoimport --db jsonStocks --collection stocks --type json --file ${seedOutputPath} --jsonArray --numInsertionWorkers 2`;
+  const command = `mongoimport --db stocks --collection stocks --type json --file ${seedOutputPath} --jsonArray --numInsertionWorkers 2`;
   console.log(`Time to Generate + Export: \x1b[32m${(Date.now() - startTime) / 1000}s\x1b[0m`);
   console.log('starting to import');
   importStartTime = Date.now();
