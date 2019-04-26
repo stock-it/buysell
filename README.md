@@ -1,5 +1,4 @@
-buy_sell_module
-Transactional component handles sale/purchase of desired stocks
+Transactional component for handling stock buys/sells
 
 #CRUD API Routes
 
