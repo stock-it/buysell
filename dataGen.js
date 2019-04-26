@@ -7,7 +7,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 10000000;
+const numToseed = 10;
 
 
 const mapTicker = () => {
@@ -51,6 +51,8 @@ const convertArrayofObjectsToCSV = (data, count) => {
 };
 
 
+console.log('creating csv file....');
+console.time('file created in');
 function writeRecords(writer, encoding, callback) {
   let i = numToseed;
   write();
@@ -67,15 +69,11 @@ function writeRecords(writer, encoding, callback) {
     } while (i > 0 && ok);
     if (i > 0) {
       process.stdout.once('drain', write);
-      
+      console.timeEnd('file created in');
     }
-  }
-  
+  }  
 }
 
 writeRecords(file, 'utf8', () => { 
   console.error('Done'); 
 });
-
-
-
