@@ -4,7 +4,7 @@ const csv = require('fast-csv');
 const mongoose = require('mongoose');
 // const csv = require('fast-csv');
 // const fs = require('fs');
-
+mongoose.Promise = global.promise;
 
 mongoose.connect('mongodb://localhost/stocks', { useNewUrlParser: true });
 
