@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const stockController = require('../controllers/index.js');
+const controller = require('../controllers/index.js');
 
 router.get('/stocks/:ticker', (req, res) => {
   controller.getStockInfo(req.params.ticker)
@@ -9,20 +9,23 @@ router.get('/stocks/:ticker', (req, res) => {
     });
 });
 
-router.get('/api/accounts/:account_number', (req, res) => {
+router.get('/accounts/:account_number', (req, res) => {
   controller.getAccountInfo(req.params.account_number)
     .then((accountData) => {
       res.status(200);
       res.send(accountData);
-    }); 
+    });
 });
+
+
+
 
 // app.patch('/api/stocks/:account_number', (req, res) => {
 //   controller.getAccountInfo(req.params.account_number)
 //   .then((accountData) => {
 //     res.status(200);
 //     res.send(accountData);
-//   }); 
+//   });
 // });
 
 
