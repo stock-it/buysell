@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('./index.js');
+const db = require('./index.js').sequelize;
 
 const Stocks = db.define('stocks', {
   ask_price: {
@@ -39,5 +39,14 @@ const Stocks = db.define('stocks', {
   timestamps: false,
 });
 
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.'); // eslint-disable-line no-console
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err); // eslint-disable-line no-console
+  });
 
-module.exports = Stocks;
+
+module.exports = Stocks
