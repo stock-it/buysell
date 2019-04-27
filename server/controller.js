@@ -6,7 +6,7 @@ module.exports.getStockInfo = stockSymbol => requestStock(stockSymbol);
 
 module.exports.updateAccount = accountID => updateAccount(accountID);
 
-module.exports.createStockInfo = (stockSymbol) => 
+// module.exports.createStockInfo = (stockSymbol) => 
 
 // // src/usingDB/models/index.js
 // var Pool = require('pg-pool');
@@ -50,5 +50,3 @@ module.exports.createStockInfo = (stockSymbol) =>
 // module.exports.getAccountInfo = accountID => requestAccount(accountID);
 
 // module.exports.getStockInfo = stockSymbol => requestStock(stockSymbol);
-
-
