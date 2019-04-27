@@ -15,5 +15,5 @@ CREATE DATABASE stocks;
     quantity DECIMAL NOT NULL 
 );
 
-COPY stocks(ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity)
+COPY sdc(ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity)
 FROM '/Users/MyFolder/SDC/buysell/10Million.csv' DELIMITER ',' CSV HEADER;

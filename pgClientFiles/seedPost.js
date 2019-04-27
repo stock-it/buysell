@@ -11,7 +11,7 @@ client.connect(() => console.log('Connected to postgres!'));
 // inserts data from CSV file into Postgres stocks table
 console.log('Inserting......please wait.....');
 console.time('finished seeding Postgres with 10 Million Records');
-let stream = client.query(copyFrom('COPY stocks(ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity) FROM STDIN WITH CSV HEADER'));
+let stream = client.query(copyFrom('COPY sdc(ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity) FROM STDIN WITH CSV HEADER'));
 let fileStream = fs.createReadStream('10Million.csv');
 fileStream.pipe(stream);
 fileStream.on('end', () => console.timeEnd('finished seeding Postgres with 10 Million Records'));
