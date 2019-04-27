@@ -26,31 +26,30 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/stocks/:ticker', express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-// app.get('/api/stocks/:ticker', (req, res) => {
-//   controller.getStockInfo(req.params.ticker)
-//     .then((stockData) => {
-//       res.status(200);
-//       res.send(stockData);
-//     });
-// });
-
-
-router.get('/api/stocks/:ticker', (req, res, next) => {
-  pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-    if (err) {
-      return console.error('error fetching client from pool', err);
-    }
-    console.log("connected to database");
-    client.query(`SELECT * FROM stocks WHERE symbol=${req.params.ticker}`, (err, result) => {
-      done();
-      if (err) {
-        return console.error('error running query', err);
-      }
+app.get('/api/stocks/:ticker', (req, res) => {
+  controller.getStockInfo(req.params.ticker)
+    .then((stockData) => {
       res.status(200);
-      res.send(result);
+      res.send(stockData);
     });
-  });
 });
+
+// router.get('/api/stocks/:ticker', (req, res, next) => {
+//   pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+//     if (err) {
+//       return console.error('error fetching client from pool', err);
+//     }
+//     console.log("connected to database");
+//     client.query(`SELECT * FROM stocks WHERE symbol=${req.params.ticker}`, (err, result) => {
+//       done();
+//       if (err) {
+//         return console.error('error running query', err);
+//       }
+//       res.status(200);
+//       res.send(result);
+//     });
+//   });
+// });
 
 // app.get('/api/accounts/:account_number', (req, res) => {
 //   controller.getAccountInfo(req.params.account_number)

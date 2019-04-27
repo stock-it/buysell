@@ -75,9 +75,9 @@ class BuySell extends React.Component {
   }
 
   getStockData() {
-    // const ticker = window.location.pathname.split('/')[2];
-    // axios.get(`/api/stocks/${ticker}`)
-      axios.get(`/api/stocks/FWTKA`)
+    const ticker = window.location.pathname.split('/')[2];
+    axios.get(`http://localhost:3002/api/stocks/${ticker}`)
+      // axios.get(`/api/stocks/FWTKA`)
       .then(res => res.data)
       .then((result) => {
         this.setState({
@@ -87,7 +87,7 @@ class BuySell extends React.Component {
   }
 
   getAccountData() {
-    axios.get('/api/accounts/2QW30682')
+    axios.get('http://localhost:3002/api/accounts/2QW30682')
       .then(res => res.data)
       .then((result) => {
         this.setState({
