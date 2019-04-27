@@ -1,6 +1,4 @@
-// src/usingDB/models/index.js
 var Pool = require('pg-pool');
-const dotenv = require('dotenv');
 dotenv.config();
 
 const pool = new Pool({
@@ -20,14 +18,3 @@ export default {
     })
   }
 }
-
-
-
-
-// const { requestAccount, requestStock } = require('./request');
-
-// module.exports.getAccountInfo = accountID => requestAccount(accountID);
-
-// module.exports.getStockInfo = stockSymbol => requestStock(stockSymbol);
-
-
