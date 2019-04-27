@@ -1,8 +1,12 @@
-const { requestAccount, requestStock } = require('./request');
+const { requestAccount, requestStock, updateAccount } = require('./request');
 
 module.exports.getAccountInfo = accountID => requestAccount(accountID);
 
 module.exports.getStockInfo = stockSymbol => requestStock(stockSymbol);
+
+module.exports.updateAccount = accountID => updateAccount(accountID);
+
+module.exports.createStockInfo = (stockSymbol) => 
 
 // // src/usingDB/models/index.js
 // var Pool = require('pg-pool');

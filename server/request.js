@@ -6,3 +6,13 @@ module.exports.requestStock = stockSymbol => Stock.findOne({ where: { symbol: st
 
 // eslint-disable-next-line max-len
 module.exports.requestAccount = accountID => Account.findOne({ where: { account_number: accountID } });
+
+
+module.exports.updateAccount = accountID => Account.update(
+  {
+    account_number: accountID,
+  },
+  { where: { account_number: '2QW30682' } },
+).then((count) => {
+  console.log(`Rows updated ${ count }`);
+});
