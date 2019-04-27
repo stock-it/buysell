@@ -12,7 +12,7 @@ pool.on('connect', () => {
 /**
  * Create Tables
  */
-const createTables = () => {
+const createStockTable = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS 
        stocks (
@@ -26,9 +26,42 @@ const createTables = () => {
         symbol VARCHAR(5) NOT NULL, 
         quantity DECIMAL NOT NULL 
       )`;
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}; 
 
-
-
+const createAccountTable = () => {
+  const queryText =
+    `CREATE TABLE IF NOT EXISTS 
+       accounts (
+        id SERIAL PRIMARY KEY,
+        type VARCHARS(8) NOT NULL,
+        buying_power DECIMAL NOT NULL,
+        option_level INT NOT NULL, 
+        watchlist VARCHARS(20),
+      )`;
+  pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
+/**
+ * Drop Tables
+ */
+const dropStockTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS stocks';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
@@ -40,11 +73,8 @@ const createTables = () => {
     });
 }
 
-/**
- * Drop Tables
- */
-const dropTables = () => {
-  const queryText = 'DROP TABLE IF EXISTS stocks';
+const dropAccountTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS accounts';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
@@ -62,8 +92,10 @@ pool.on('remove', () => {
 });
 
 module.exports = {
-  createTables,
-  dropTables
+  createStockTable,
+  createAccountTable,
+  dropStockTable, 
+  dropAccountTable,
 };
 
 require('make-runnable');
