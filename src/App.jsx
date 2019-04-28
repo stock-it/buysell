@@ -74,20 +74,22 @@ class BuySell extends React.Component {
     }
   }
 
+  // HARD CODED endpoints for testing - will be changed back
+
   getStockData() {
     const ticker = window.location.pathname.split('/')[2];
-    axios.get(`http://localhost:3002/api/stocks/${ticker}`)
-      // axios.get(`/api/stocks/FWTKA`)
+    // axios.get(`http://localhost:3000/api/stocks/${ticker}`)
+      axios.get(`http://localhost:3000/api/stocks/FWTKA`)
       .then(res => res.data)
       .then((result) => {
         this.setState({
           stock: result,
         });
-      });
+      }).catch(err => console.err('SOMETHING WENT WRONG', err));
   }
 
   getAccountData() {
-    axios.get('http://localhost:3002/api/accounts/2QW30682')
+    axios.get(`http://localhost:3000/api/accounts/2QW30682`)
       .then(res => res.data)
       .then((result) => {
         this.setState({

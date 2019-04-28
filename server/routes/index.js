@@ -1,21 +1,22 @@
 const router = require('express').Router();
 const controller = require('../controllers/index.js');
 
-router.get('/stocks/:ticker', (req, res) => {
-  controller.getStockInfo(req.params.ticker)
+router.get('/stocks/:ticker', async (req, res) => {
+  await controller.getStockInfo(req.params.ticker)
     .then((stockData) => {
       res.status(200);
       res.send(stockData);
     });
 });
 
-router.get('/accounts/:account_number', (req, res) => {
-  controller.getAccountInfo(req.params.account_number)
+router.get('/accounts/:account_number', async (req, res) => {
+  await controller.getAccountInfo(req.params.account_number)
     .then((accountData) => {
       res.status(200);
       res.send(accountData);
     });
 });
+
 
 
 

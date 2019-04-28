@@ -7,7 +7,7 @@
     "watch": "webpack",
     "dev:build": "npm start && npm run server",
     "start": "webpack-dev-server --open",
-    "dev:server": "nodemon server/server.js",
+    "dev:server": "nodemon server/index.js",
     "db:seed": "psql -U MyFolder -d stocks -a -f /Users/MyFolder/SDC/buysell/database-postgres/importCSV.sql",
     "mongoose:connect": "node databases/database-mongoose/mongoConnection.js",
     "test": "jest",

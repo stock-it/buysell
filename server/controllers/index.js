@@ -26,8 +26,8 @@ module.exports.getStockInfo = (stockSymbol) => {
 };
 
 module.exports.updateStockInfo = (stockSymbol, newPrice) => Stock.update(
-    { price: newPrice },
-    { where: { stockSymbol: $1 } },
-  ).then((count) => {
-    console.log(`Rows updated ${count}`);
-  }).catch(err => console.error('Something went wrong:', err));
+  { price: newPrice },
+  { where: { stockSymbol: $1 } },
+).then((count) => {
+  console.log(`Rows updated ${count}`);
+}).catch(err => console.error('Something went wrong:', err));

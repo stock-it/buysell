@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/stocks/:ticker', express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-app.use('/api', stockRoutes)
+app.use('/api', stockRoutes);
 
 // app.listen(3000, () => console.log('BuySell server listening on port 3000!\n'));
 
