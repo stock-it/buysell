@@ -1,16 +1,8 @@
-DROP DATABASE IF EXISTS sdc;
-CREATE DATABASE sdc;
+CREATE DATABASE test;
+DROP DATABASE IF EXISTS test;
 DROP TABLE IF EXISTS stock_info;
-DROP TABLE IF EXISTS account_info;
 
 \connect test;
-
- CREATE TABLE IF NOT EXISTS account_info (
-     account_number VARCHAR, 
-     buying_power DECIMAL, 
-     option_level INT, 
-     watchlist VARCHAR,
- );
 
  CREATE TABLE IF NOT EXISTS stock_info (
     id SERIAL PRIMARY KEY, 
@@ -24,5 +16,28 @@ DROP TABLE IF EXISTS account_info;
     quantity DECIMAL NOT NULL 
 );
 
-INSERT INTO account_info VALUES ('2QW30682','486422.2050', 3,'FB,TSLA,SQ,AAPL,MSFT,BABA,V,JPM,BAC');
 COPY stock_info FROM '/Users/MyFolder/SDC/buysell/test.csv' DELIMITER ',' CSV HEADER;
+
+/* eslint-disable no-console */
+require('newrelic');
+const express = require('express');
+const { join } = require('path');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+const mountRoutes = require('./routes');
+
+
+
+
+const app = express();
+const port = 4000;
+mountRoutes(app);
+
+// app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+app.use('/stocks/:stockId', express.static(join(__dirname, '/../public/dist')));
+
+app.listen(port, () => {
+  console.log(`Server is now listening on port: ${port}`)
+})
