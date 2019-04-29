@@ -1,31 +1,22 @@
-const mongoose = require('mongoose');
-const csv = require("fast-csv")
-const fs = require('fs');
+const { Pool } = require('pg');
 
+const { PGHOST, PGUSER, POOLSIZE, PGDATABASE } = process.env;
 
-mongoose.connect('mongodb://localhost/democloud',{ useNewUrlParser: true } );
-
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Mongoose DB Connected')
+const db = new Pool({
+  host: PGHOST || 'localhost',
+  user: PGUSER || 'MyFolder',
+  database: PGDATABASE || 'sdc',
+  max: POOLSIZE || 10,
 });
 
-var SongsInfosSchema = new mongoose.Schema({
-	_id: String,
-	plays: Number,
-	likes: Number,
-	reposts: Number,
-	date: String,
-	artist: String,
-	artist_followers: Number,
-	artist_tracks: Number,
-	isFollowed: Boolean
+(async function() {
+  const client = await db.connect()
+  await client.query('SELECT NOW()')
+  client.release()
+})()
 
-})
-
-var SongsInfos = mongoose.model('SongsInfos', SongsInfosSchema);
-
-
- module.exports = { SongsInfos, db, mongoose }
+module.exports = {
+  query: (text, params, callback) => {
+    return db.query(text, params, callback)
+  }
+}

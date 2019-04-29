@@ -2,8 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import DisplayContainer from './Dropdown.jsx';
+import API from './api';
 
-export const Input = ({ disabled, onChange, min, name, value, placeholderText }) => (
+export const Input = ({
+  disabled, onChange, min, name, value, placeholderText,
+}) => (
   <React.Fragment>
     <input autoComplete="off" min={min} disabled={disabled} name={name} type="text" value={value} placeholder={placeholderText} onChange={onChange} />
   </React.Fragment>
@@ -15,6 +18,7 @@ class BuySell extends React.Component {
 
     this.state = {
       stock: {
+        id: '1',
         ask_price: '0',
         ask_size: 0,
         bid_price: '0',
@@ -23,10 +27,11 @@ class BuySell extends React.Component {
         last_trade_price: '0',
         symbol: '',
         quantity: '0.0000',
-        createdAt: '',
-        updatedAt: '',
+        // createdAt: '',
+        // updatedAt: '',
       },
       account: {
+        account_number: '2QW30682',
         buying_power: '',
         option_level: 0,
         watchlist: '',
@@ -66,7 +71,7 @@ class BuySell extends React.Component {
     this.wrapperRef = node;
   }
 
-  handleClickOutside(event){
+  handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
         ordertypeclicked: false,
@@ -75,25 +80,52 @@ class BuySell extends React.Component {
   }
 
   getStockData() {
-    const ticker = window.location.pathname.split('/')[2];
-    axios.get(`/api/stocks/${ticker}`)
-      .then(res => res.data)
-      .then((result) => {
+    const { stockId } = this.props.match ? this.props.match.params : { stockId: null };
+    API.get((stockId && `/api/stocks/${stockId}`) || '/api/stocks/AITHK')
+      .then((response) => {
+        const {
+          id,
+          ask_price,
+          ask_size,
+          bid_price,
+          bid_size,
+          last_extended_hours_trade_price,
+          last_trade_price,
+          symbol,
+          quantity,
+        } = response.data;
         this.setState({
-          stock: result,
+          id,
+          ask_price,
+          ask_size,
+          bid_price,
+          bid_size,
+          last_extended_hours_trade_price,
+          last_trade_price,
+          symbol,
+          quantity,
         });
       });
   }
 
   getAccountData() {
-    axios.get('/api/accounts/2QW30682')
-      .then(res => res.data)
-      .then((result) => {
+    API.get('/api/accounts/2QW30682')
+      .then((response) => {
+        const {
+          account_number,
+          buying_power,
+          option_level,
+          watchlist,
+        } = response.data;
         this.setState({
-          account: result,
+          account_number,
+          buying_power,
+          option_level,
+          watchlist,
         });
       });
   }
+
 
   orderTypeMenuClick() {
     this.setState({
@@ -221,21 +253,27 @@ class BuySell extends React.Component {
   }
 
   render() {
-    const isWatched = (symbol) => {
-      return _.includes(this.state.account.watchlist.split(','), symbol);
-    };
+    const isWatched = symbol => _.includes(this.state.account.watchlist.split(','), symbol);
 
     let sellButton;
     if (Number(this.state.stock.quantity) > 0 && this.state.side === 'sell') {
       sellButton = (
         <div>
-          <button className="clicked-tab" type="button" onClick={this.updateToSellSide}>Sell { this.state.stock.symbol }</button>
+          <button className="clicked-tab" type="button" onClick={this.updateToSellSide}>
+Sell
+            {' '}
+            { this.state.stock.symbol }
+          </button>
         </div>
       );
     } else if (Number(this.state.stock.quantity) > 0) {
       sellButton = (
         <div>
-          <button type="button" onClick={this.updateToSellSide}>Sell { this.state.stock.symbol }</button>
+          <button type="button" onClick={this.updateToSellSide}>
+Sell
+            {' '}
+            { this.state.stock.symbol }
+          </button>
         </div>
       );
     } else {
@@ -246,13 +284,21 @@ class BuySell extends React.Component {
     if (this.state.side === 'buy') {
       buyButton = (
         <div>
-          <button className="clicked-tab" type="button" onClick={this.updateToBuySide}>Buy { this.state.stock.symbol }</button>
+          <button className="clicked-tab" type="button" onClick={this.updateToBuySide}>
+Buy
+            {' '}
+            { this.state.stock.symbol }
+          </button>
         </div>
       );
     } else {
       buyButton = (
         <div>
-          <button type="button" onClick={this.updateToBuySide}>Buy { this.state.stock.symbol }</button>
+          <button type="button" onClick={this.updateToBuySide}>
+Buy
+            {' '}
+            { this.state.stock.symbol }
+          </button>
         </div>
       );
     }
@@ -305,7 +351,7 @@ class BuySell extends React.Component {
             <OrderTypeButtonComponent text="Limit Order" />
             <OrderTypeButtonComponent text="Stop Loss Order" />
             <OrderTypeButtonComponent text="Stop Limit Order" />
-          </div> 
+          </div>
         </div>
       );
     } else {
@@ -314,7 +360,15 @@ class BuySell extends React.Component {
 
     let tradeButton;
     if (this.state.account.option_level > 0) {
-      tradeButton = <button type="submit" className="outerBtn">Trade {this.state.stock.symbol} Options</button>;
+      tradeButton = (
+        <button type="submit" className="outerBtn">
+Trade
+  {' '}
+  {this.state.stock.symbol}
+  {' '}
+Options
+</button>
+      );
     } else {
       tradeButton = <div />;
     }
@@ -407,7 +461,7 @@ class BuySell extends React.Component {
       orderMenuButton = (
         <button className="kebab clicked-tab" onClick={this.orderTypeMenuClick} type="button">
           <svg width="28" height="28" viewBox="0 0 28 28">
-            <path className="kebab" fill="#20ce99" fillRule="evenodd" d="M14,16 C12.8954305,16 12,15.1045695 12,14 C12,12.8954305 12.8954305,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 Z M6,16 C4.8954305,16 4,15.1045695 4,14 C4,12.8954305 4.8954305,12 6,12 C7.1045695,12 8,12.8954305 8,14 C8,15.1045695 7.1045695,16 6,16 Z M22,16 C20.8954305,16 20,15.1045695 20,14 C20,12.8954305 20.8954305,12 22,12 C23.1045695,12 24,12.8954305 24,14 C24,15.1045695 23.1045695,16 22,16 Z"></path>
+            <path className="kebab" fill="#20ce99" fillRule="evenodd" d="M14,16 C12.8954305,16 12,15.1045695 12,14 C12,12.8954305 12.8954305,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 Z M6,16 C4.8954305,16 4,15.1045695 4,14 C4,12.8954305 4.8954305,12 6,12 C7.1045695,12 8,12.8954305 8,14 C8,15.1045695 7.1045695,16 6,16 Z M22,16 C20.8954305,16 20,15.1045695 20,14 C20,12.8954305 20.8954305,12 22,12 C23.1045695,12 24,12.8954305 24,14 C24,15.1045695 23.1045695,16 22,16 Z" />
           </svg>
         </button>
       );
@@ -415,7 +469,7 @@ class BuySell extends React.Component {
       orderMenuButton = (
         <button className="kebab" onClick={this.orderTypeMenuClick} type="button">
           <svg width="28" height="28" viewBox="0 0 28 28">
-            <path fillRule="evenodd" d="M14,16 C12.8954305,16 12,15.1045695 12,14 C12,12.8954305 12.8954305,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 Z M6,16 C4.8954305,16 4,15.1045695 4,14 C4,12.8954305 4.8954305,12 6,12 C7.1045695,12 8,12.8954305 8,14 C8,15.1045695 7.1045695,16 6,16 Z M22,16 C20.8954305,16 20,15.1045695 20,14 C20,12.8954305 20.8954305,12 22,12 C23.1045695,12 24,12.8954305 24,14 C24,15.1045695 23.1045695,16 22,16 Z"></path>
+            <path fillRule="evenodd" d="M14,16 C12.8954305,16 12,15.1045695 12,14 C12,12.8954305 12.8954305,12 14,12 C15.1045695,12 16,12.8954305 16,14 C16,15.1045695 15.1045695,16 14,16 Z M6,16 C4.8954305,16 4,15.1045695 4,14 C4,12.8954305 4.8954305,12 6,12 C7.1045695,12 8,12.8954305 8,14 C8,15.1045695 7.1045695,16 6,16 Z M22,16 C20.8954305,16 20,15.1045695 20,14 C20,12.8954305 20.8954305,12 22,12 C23.1045695,12 24,12.8954305 24,14 C24,15.1045695 23.1045695,16 22,16 Z" />
           </svg>
         </button>
       );
