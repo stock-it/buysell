@@ -8,8 +8,6 @@ HTTP GET -> /api/stocks/:ticker - Display Company API Data
 
 HTTP GET -> /api/accounts/:account_number - Display Account API 
 
-HTTP PUT -> /accounts/:account_number - Update Account
-
-HTTP POST/PUT/DELETE -> /stocks/:ticker/dev	- Admin changes to listed companies
+HTTP POST/PUT/DELETE -> /stocks/:ticker/dev	- Admin changes to listed companies/stocks
 
 HTTP POST/PUT/DELETE -> /accounts/:account_number/dev	Admin changes to user account
