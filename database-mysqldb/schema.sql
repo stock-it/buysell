@@ -1,11 +1,14 @@
 DROP SCHEMA IF EXISTS public CASCADE;
 
-  CREATE TABLE account_number (
-     account_number: INT NOT NULL 
-     buying_power FLOAT
-     option_level INTEGER 
-     watchlist VARCHAR
+  CREATE TABLE account_info(
+     account_number VARCHAR, 
+     buying_power DECIMAL,
+     option_level INT, 
+     watchlist VARCHAR,
   );
+  
+CREATE TABLE account_info(account_number VARCHAR, buying_power DECIMAL, option_level INT, watchlist VARCHAR) VALUES ('2QW30682','486422.2050', 3,'FB,TSLA,SQ,AAPL,MSFT,BABA,V,JPM,BAC');
+INSERT INTO account_info VALUES ('2QW30682','486422.2050', 3,'FB,TSLA,SQ,AAPL,MSFT,BABA,V,JPM,BAC');
 
   CREATE TABLE stocks (
       id SERIAL PRIMARY KEY 

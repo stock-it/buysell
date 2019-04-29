@@ -1,4 +1,5 @@
 var Pool = require('pg-pool');
+const Sequelize = require('sequelize');
 
 // dotenv.config();
 
@@ -8,6 +9,12 @@ const pool = new Pool({
 
 pool.on('connect', () => {
   console.log('connected to the db');
+});
+
+
+const db = new Sequelize('sdc', 'MyFolder', '', {
+  host: 'localhost',
+  dialect: 'postgres',
 });
 /**
  * Create Tables
@@ -90,6 +97,12 @@ pool.on('remove', () => {
   console.log('client removed');
   process.exit(0);
 });
+
+db
+  .authenticate()
+  .then(() => console.log('Connection successfully established!'))
+  .catch(err => console.error('Whoopsie! Looks like you\'re not connected, heres why: ', err));
+
 
 module.exports = {
   createStockTable,

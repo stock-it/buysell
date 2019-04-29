@@ -7,7 +7,7 @@ const tickerChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const companies = new Set();
 
-const numToseed = 10;
+const numToseed = 100000;
 
 
 const mapTicker = () => {
@@ -24,8 +24,9 @@ const mapTicker = () => {
   }
   return mapTicker();
 };
-
+let counter = 1;
 const createFakeStock = () => ({
+  id: counter++,
   ask_price: faker.finance.amount(100, 1500, 6),
   ask_size: faker.random.number({ min: 100, max: 500 }),
   bid_price: faker.finance.amount(100, 2000, 6),
@@ -41,7 +42,7 @@ const generateStocks = () => createFakeStock();
 const convertArrayofObjectsToCSV = (data, count) => {
   let result = '';
   if (count === numToseed) {
-    result += 'ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity\n';
+    result += 'id, ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity\n';
   }
   for (let property in data) {
     result += `${data[property]  },`;

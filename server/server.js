@@ -1,9 +1,10 @@
+require('newrelic');
 const bodyParser = require('body-parser');
 const path = require('path');
 const express = require('express');
 const fs = require('fs');
 const controller = require('./controller');
-
+const morgan = require('morgan');
 const app = express();
 
 app.get('*.js', (request, response, next) => {
@@ -21,14 +22,17 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/stocks/:ticker', express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
+// app.get('/api/stocks/:ticker', (req, res) => {
+//   controller.getStockInfo(req.params.ticker)
+//     .then((stockData) => {
+//       res.status(200);
+//       res.send(stockData);
+//     });
+// });
 
-app.get('/api/stocks/:ticker', (req, res) => {
-  controller.getStockInfo(req.params.ticker)
-    .then((stockData) => {
-      res.status(200);
-      res.send(stockData);
-    });
-});
+app.get('/api/stocks/:ticker', controller.getOne);
+// });
 
 app.get('/api/accounts/:account_number', (req, res) => {
   controller.getAccountInfo(req.params.account_number)
@@ -38,4 +42,4 @@ app.get('/api/accounts/:account_number', (req, res) => {
     });
 });
 
-app.listen(3002, () => console.log('BuySell server listening on port 3002!\n'));
+app.listen(3005, () => console.log('BuySell server listening on port 3005!\n'));

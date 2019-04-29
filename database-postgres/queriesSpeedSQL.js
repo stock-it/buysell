@@ -1,4 +1,4 @@
-const psql = require('./pgIndex.js')
+const psql = require('./index.js')
 
 //******PSQL QUERIES *********
 
@@ -9,7 +9,7 @@ console.time('time');
  });
 
  console.time('time');
- psql.client.query(`SELECT * FROM Stocks WHERE id = 99999`, (err, results) => {
+ psql.query(`SELECT * FROM Stocks WHERE id = 99999`, (err, results) => {
 	 err ? console.log(err) : console.log(results.rows);
 	 results ? console.timeEnd('time') : null;
  });

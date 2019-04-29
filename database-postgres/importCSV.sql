@@ -1,7 +1,8 @@
 DROP DATABASE IF EXISTS stocks;
+CREATE DATABASE stocks;
 DROP TABLE IF EXISTS stocks;
 
-CREATE DATABASE stocks;
+\connect stocks;
 
  CREATE TABLE stocks (
     id SERIAL PRIMARY KEY, 
@@ -15,5 +16,5 @@ CREATE DATABASE stocks;
     quantity DECIMAL NOT NULL 
 );
 
-COPY stocks(ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity)
+COPY stocks(id, ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity)
 FROM '/Users/MyFolder/SDC/buysell/10Million.csv' DELIMITER ',' CSV HEADER;

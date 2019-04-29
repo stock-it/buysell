@@ -1,7 +1,11 @@
 const Sequelize = require('sequelize');
 const db = require('./index.js').sequelize;
 
-const Stocks = db.define('stocks', {
+const { Model } = Sequelize;
+
+class Stock extends Sequelize.Model {}
+
+Stock.create('Stock', {
   ask_price: {
     type: Sequelize.DECIMAL(12, 6),
     allowNull: true,
@@ -39,6 +43,8 @@ const Stocks = db.define('stocks', {
   timestamps: false,
 });
 
+db.sync();
+
 sequelize
   .authenticate()
   .then(() => {
@@ -47,6 +53,10 @@ sequelize
   .catch((err) => {
     console.error('Unable to connect to the database:', err); // eslint-disable-line no-console
   });
+
+  sequelize.databaseVersion().then((databaseVersion) => {
+    console.log(databaseVersion);
+} );
 
 
 module.exports = Stocks

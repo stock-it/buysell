@@ -1226,6 +1226,7 @@ const sampleAccount = {
   watchlist: 'FB,TSLA,SQ,AAPL,MSFT,BABA,V,JPM,BAC',
 };
 
+
 const insertSampleAccount = () => {
   Account.create(sampleAccount);
 };
