@@ -1,3 +1,9 @@
 node_modules
 *.env 
 *.csv
+*.pem
+aws_login.txt 
+
+
+
+

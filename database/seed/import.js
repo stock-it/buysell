@@ -15,7 +15,7 @@ client.query(`
 `);
 
 client.query(`
-CREATE TABLE IF NOT EXISTS  stock_info(
+CREATE TABLE IF NOT EXISTS stock_info(
   id SERIAL PRIMARY KEY, 
   ask_price DECIMAL NOT NULL,
   ask_size DECIMAL NOT NULL, 
