@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const db = require('./index.js');
+const db = require('./sequelizeIndex.js');
 
-const Account = db.define('account', {
+const Account = db.define('account_info', {
   account_number: {
     type: Sequelize.STRING(8),
     primaryKey: true,

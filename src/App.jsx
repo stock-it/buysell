@@ -81,7 +81,8 @@ class BuySell extends React.Component {
 
   getStockData() {
     const { stockId } = this.props.match ? this.props.match.params : { stockId: null };
-    API.get((stockId && `/api/stocks/${stockId}`) || '/api/stocks/AITHK')
+    // API.get((stockId && `/api/stocks/${stockId}`) || '/api/stocks/AITHK')
+    API.get('/api/stocks/AITHK')
       .then((response) => {
         const {
           id,

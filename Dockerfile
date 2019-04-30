@@ -16,7 +16,7 @@ RUN npm run watch
 RUN npm run db:setup
 
 # What port will the container talk to the outside world with once created?
-EXPOSE 3002
+EXPOSE 5000
 
 # How do you start your app?
 CMD ["npm", "run", "server"]

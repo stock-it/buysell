@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const db = require('./index.js');
+const db = require('./sequelizeIndex.js');
 
-const Stock = db.define('stock', {
+const Stock = db.define('stock_info', {
   ask_price: {
     type: Sequelize.DECIMAL(12, 6),
     allowNull: false,
