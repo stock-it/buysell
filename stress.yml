@@ -6,6 +6,5 @@ config:
 scenarios:
   - flow:
     - get:
-        url: "stocks/AITHK"
+        url: "/stocks/AITHK"
 
-        
