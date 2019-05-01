@@ -13,3 +13,7 @@ HTTP PUT -> /accounts/:account_number - Update Purchase/Sell stock
 HTTP POST/PUT/DELETE -> /stocks/:ticker/dev	- Admin changes to listed companies
 
 HTTP POST/PUT/DELETE -> /accounts/:account_number/dev	Admin changes to user account
+<<<<<<< HEAD
+=======
+
+>>>>>>> b0d26a83d661c5e39263e079ad4ee95abc563257
