@@ -5,6 +5,8 @@ config:
       arrivalRate: 100
 scenarios:
   - flow:
-    - get:
-        url: "/stocks/AITHK"
+    - loop:
+      - get:
+          url: "/stocks/AITHK"
+      count: 75
 

@@ -24,7 +24,8 @@ const db = new Pool({
   host: PGHOST || 'localhost',
   user: PGUSER || 'MyFolder',
   database: PGDATABASE || 'test',
-  max: POOLSIZE || 10
+  port: 5432,
+  max: POOLSIZE || 10,
 });
 
 (async function() {

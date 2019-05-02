@@ -1,9 +1,10 @@
+/* eslint-disable linebreak-style */
 const Router = require('express-promise-router');
-
 const db = require('../../database');
-
 const router = new Router();
-
+// const pg = require('pg');
+// const config = require('../configDB.js');      
+// const client = new pg.Client(config);
 router.get('/:stockId', async (req, res) => {
   const stockQuery = `SELECT * from stock_info WHERE symbol = $1`;
   const { rows } = await db.query(stockQuery, [req.params.stockId]);
@@ -73,3 +74,4 @@ router.delete('/:stockId', async (req, res) => {
 });
 
 module.exports = router
+
