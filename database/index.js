@@ -1,6 +1,6 @@
 // const Sequelize = require('sequelize');
 
-// const db = new Sequelize('test', 'MyFolder', '', { // <- make sure to change password and input from a config file
+// const db = new Sequelize('test', 'postgres', '', { // <- make sure to change password and input from a config file
 //   host: 'localhost', // <- update host
 //   dialect: 'postgres',
 // });
@@ -21,10 +21,11 @@ const { Pool } = require('pg');
 const { PGHOST, PGUSER, POOLSIZE, PGDATABASE } = process.env;
 
 const db = new Pool({
-  host: PGHOST || 'localhost',
-  user: PGUSER || 'MyFolder',
+  host: PGHOST || '172.31.83.26',
+  user: PGUSER || 'postgres', // MyFolder
   database: PGDATABASE || 'test',
   port: 5432,
+  password: '',
   max: POOLSIZE || 10,
 });
 
@@ -39,3 +40,4 @@ module.exports = {
     return db.query(text, params, callback)
   }
 }
+

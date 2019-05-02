@@ -2,7 +2,7 @@ var faker = require("faker");
 var fs = require('fs');
 
 // var one_million = 1;
-var one_million = 100000;
+var one_million = 1000;
 var start = 1;
 var stop = one_million;
 
@@ -47,7 +47,8 @@ for (var i = 1; i <= 10; i++){
       data += csvString;
     }
     console.log(`now writing file ${i}`)
-    fs.writeFileSync(`./data${i}.csv`, data);
+    // fs.writeFileSync(`./data${i}.csv`, data);
+    fs.writeFileSync(`data.csv`, data);
     console.log(`done writing file ${i}, ${stop - start} lines`)
   }
   start += one_million;

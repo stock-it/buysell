@@ -15,5 +15,14 @@
 INSERT INTO stock_info VALUES (1,443.446583,202,612.226358,225,813.630269,130.279832,AITHK,73.3044');
 */
 
+-- COPY stock_info(id, ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity) 
+-- FROM '/Users/MyFolder/SDC/buysell/test.csv' DELIMITER ',' CSV HEADER;
+
+
+
+
+COPY stock_info(id, ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity) 
+FROM './data.csv' DELIMITER '|' CSV HEADER;
+
 
 

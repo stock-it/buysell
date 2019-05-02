@@ -1,11 +1,11 @@
-CREATE DATABASE test;
+
 DROP DATABASE IF EXISTS test;
 DROP TABLE IF EXISTS stock_info;
 
-\connect test;
+CREATE DATABASE test;
 
- CREATE TABLE IF NOT EXISTS stock_info (
-    id INT, 
+ CREATE TABLE stock_info (
+    id SERIAL PRIMARY KEY, 
     ask_price DECIMAL NOT NULL,
     ask_size DECIMAL NOT NULL, 
     bid_price DECIMAL NOT NULL,
@@ -16,4 +16,4 @@ DROP TABLE IF EXISTS stock_info;
     quantity DECIMAL NOT NULL 
 );
 
-COPY stock_info FROM '/var/lib/pgsql92/test.csv' DELIMITER ',' CSV HEADER;
+COPY stock_info(id, ask_price,ask_size,bid_price,bid_size,last_extended_hours_trade_price,last_trade_price,symbol,quantity) FROM './data.csv' DELIMITER ',' CSV HEADER;
