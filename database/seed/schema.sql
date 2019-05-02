@@ -16,4 +16,4 @@ DROP TABLE IF EXISTS stock_info;
     quantity DECIMAL NOT NULL 
 );
 
-COPY stock_info FROM '/var/lib/pgsql92/test.csv' DELIMITER ',' CSV HEADER;
+COPY stock_info FROM '/var/lib/pgsql92/fakeData.csv' DELIMITER ',' CSV HEADER;

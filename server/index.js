@@ -26,8 +26,6 @@ app.get('/api/accounts/:account_number', async (req, res) => {
 
 
 // app.use(bodyParser.json());
-
-
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 
