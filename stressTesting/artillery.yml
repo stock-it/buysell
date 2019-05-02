@@ -1,0 +1,9 @@
+config:
+  target: 'http://127.0.0.1:5000'
+  phases:
+    - duration: 60
+      arrivalRate: 150
+scenarios:
+  - flow:
+    - get:
+        url: "/api/stocks/{{$randomNumber(8000000, 10000000)}}"
