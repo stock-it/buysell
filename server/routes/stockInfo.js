@@ -11,7 +11,7 @@ router.get('/:stockId', async (req, res) => {
   res.send(rows[0]);
 });
 
-// testing route
+// testing endpoint with temporory integer id
 router.get('/:id', async (req, res) => {
   const stockQuery = `SELECT * from stock_info WHERE id = $1`;
   const { rows } = await db.query(stockQuery, [req.params.stockId]);
