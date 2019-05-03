@@ -512,3 +512,13 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":64099,"time":"2019-05-03T02:54:20.082Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/2325073/applications/275615192","component":"collector_api"}
 {"v":0,"level":40,"name":"newrelic","hostname":"macbook.local","pid":64099,"time":"2019-05-03T02:55:21.094Z","msg":"Dropped 7642 of 17642 datapoints for analyticsEvents.","component":"Harvest"}
 {"v":0,"level":40,"name":"newrelic","hostname":"macbook.local","pid":64099,"time":"2019-05-03T02:55:21.094Z","msg":"You may want to increase the limits for this event type.","component":"Harvest"}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67877,"time":"2019-05-03T04:05:31.795Z","msg":"Using New Relic for Node.js. Agent version: 5.7.0; Node version: v10.15.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67877,"time":"2019-05-03T04:05:32.043Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67877,"time":"2019-05-03T04:05:33.956Z","msg":"Connected to collector-004.newrelic.com:443 with agent run ID BDoq-VbMIdqdACN6URBtjdpcy75kAAgBAAAjHQECBBBtjdgDAAU1LjcuMAANbWFjYm9vay5sb2NhbAAHU3RvY2tJVA.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67877,"time":"2019-05-03T04:05:33.956Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/2325073/applications/275615192","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67911,"time":"2019-05-03T04:06:18.707Z","msg":"Using New Relic for Node.js. Agent version: 5.7.0; Node version: v10.15.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67911,"time":"2019-05-03T04:06:18.961Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67911,"time":"2019-05-03T04:06:20.928Z","msg":"Connected to collector-004.newrelic.com:443 with agent run ID BJQDYPa9d_r0ACN6URBtjdpcy76gAAgBAAAjHQECBBBtjdgDAAU1LjcuMAANbWFjYm9vay5sb2NhbAAHU3RvY2tJVA.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67911,"time":"2019-05-03T04:06:20.929Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/2325073/applications/275615192","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67933,"time":"2019-05-03T04:06:56.919Z","msg":"Using New Relic for Node.js. Agent version: 5.7.0; Node version: v10.15.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"macbook.local","pid":67933,"time":"2019-05-03T04:06:57.248Z","msg":"Starting New Relic for Node.js connection process."}

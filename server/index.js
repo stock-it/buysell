@@ -61,6 +61,6 @@ app.get('/api/accounts/:account_number', async (req, res) => {
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 
-app.listen(5000, function(){
+app.listen(process.env.PORT, function(){
   console.log('Express listening on port', this.address().port);
 });

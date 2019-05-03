@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
-const { PGHOST, PGUSER, POOLSIZE, PGDATABASE } = process.env;
+const { PGHOST, PGUSER, POOLSIZE, PGDATABASE, DBPASSWORD } = process.env;
 
 const db = new Pool({
   host: PGHOST || 'ec2-3-90-224-190.compute-1.amazonaws.com',
   user: PGUSER || 'power_user', // MyFolder
   database: PGDATABASE || 'test',
   port: 5432,
-  password: 'hackerman',
+  password: DBPASSWORD,
   max: POOLSIZE || 10,
 });
 
