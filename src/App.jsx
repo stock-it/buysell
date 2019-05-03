@@ -58,8 +58,34 @@ class BuySell extends React.Component {
   }
 
   componentDidMount() {
-    this.getStockData();
     this.getAccountData();
+    // this.getStockData();
+    const stockId = Math.ceil(Math.random() * 99);
+    API.get(`/${stockId}}`)
+      .then(res => {
+        const {
+          id,
+          ask_price,
+          ask_size,
+          bid_price,
+          bid_size,
+          last_extended_hours_trade_price,
+          last_trade_price,
+          symbol,
+          quantity,
+        } = response.data;
+        this.setState({
+          ask_price,
+          ask_size,
+          bid_price,
+          bid_size,
+          last_extended_hours_trade_price,
+          last_trade_price,
+          symbol,
+          quantity,
+        });
+      })
+      .catch(err => 'something went wrong. error message:', err);
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 

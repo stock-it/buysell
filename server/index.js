@@ -56,6 +56,13 @@ app.get('/api/accounts/:account_number', async (req, res) => {
   res.send(rows[0]);
 });
 
+// testing endpoint with temporory integer id
+app.get('/:id', async (req, res) => {
+  const stockQuery = `SELECT * from stock_info WHERE id = $1`;
+  const { rows } = await db.query(stockQuery, [req.params.id]);
+  res.send(rows);
+});
+
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.json());

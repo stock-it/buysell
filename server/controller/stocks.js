@@ -1,4 +1,5 @@
 const db = require('../../database');
+// const client = require('./redisConnection');
 
 exports.getStockInfo = (req, res) => {
   const ticker = req.params.stockId;
@@ -10,6 +11,18 @@ exports.getStockInfo = (req, res) => {
     res.send(JSON.stringify(data.rows[0]));
   })
 }
+
+exports.getCache = (req, res) => {
+  let query = req.params.query;
+  client.get(query, (err, result) => {
+    if (result) {
+      res.send(result);
+    } else {
+      getStockInfo(req, res);
+    }
+  })
+}
+
 
 
 exports.createStock = (req, res) => {
