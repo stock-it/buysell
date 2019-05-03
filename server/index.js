@@ -17,9 +17,9 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use('/loaderio-89cd53c52fc0a961ea0df9d2345607317.txt', (req, res) => {
-  res.send('loaderio-89cd38c52fc0a961ea2ds9d910607317');
-});
+// app.use('/loaderio-89cd53c52fc0a961ea0df9d2345607317.txt', (req, res) => {
+//   res.send('loaderio-89cd38c52fc0a961ea2ds9d910607317');
+// });
 
 
 
@@ -27,7 +27,7 @@ Routes(app);
 app.use(express.static(join(__dirname, '/../dist')));
 
 app.use('/stocks/:stockId', express.static(join(__dirname, '/../dist')));
-app.use('/:stockId', express.static('/dist'));
+// app.use('/:stockId', express.static('/dist'));
 
 
 ////// redis cache 
@@ -47,7 +47,7 @@ const cache = (req, res, next) => {
   });
 };
 
-app.get('/api/stocks/:stockId', cache);
+// app.get('/api/stocks/:stockId', cache);
 
 
 app.get('/api/accounts/:account_number', async (req, res) => {
@@ -61,7 +61,6 @@ app.get('/api/accounts/:account_number', async (req, res) => {
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 
-var listener = app.listen(process.env.PORT || 5000, () => {
-  console.log('Listening on port ' + listener.address().port); //Listening on port 5000
-})
-
+app.listen(5000, function(){
+  console.log('Express listening on port', this.address().port);
+});

@@ -81,10 +81,10 @@ class BuySell extends React.Component {
 
   getStockData() {
     const { stockId } = this.props.match ? this.props.match.params : { stockId: null };
-    API.get((stockId && `/api/stocks/${stockId}`) || '/api/stocks/AITHK')
+    API.get((stockId && `/api/stocks/${stockId}`) || '/api/stocks/AAAAB') 
+    // API.get((`/api/stocks/${id}`) || '/api/stocks/AAAAB') 
       .then((response) => {
         const {
-          id,
           ask_price,
           ask_size,
           bid_price,
@@ -95,7 +95,6 @@ class BuySell extends React.Component {
           quantity,
         } = response.data;
         this.setState({
-          id,
           ask_price,
           ask_size,
           bid_price,
@@ -112,12 +111,14 @@ class BuySell extends React.Component {
     API.get('/api/accounts/2QW30682')
       .then((response) => {
         const {
+          id,
           account_number,
           buying_power,
           option_level,
           watchlist,
         } = response.data;
         this.setState({
+          id, 
           account_number,
           buying_power,
           option_level,

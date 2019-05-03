@@ -35,7 +35,7 @@ app.get('/api/accounts/:account_number', (req, res) => {
       .then(() => res.status(200).end())
       .catch(err => res.status(418).end(err));
   });
-  
+
   app.delete('/api/accounts/:account_number', async (req, res) => {
     const accountID = req.params.accountNumber;
     const { ticker } = req.body;

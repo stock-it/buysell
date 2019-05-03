@@ -63,6 +63,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
+    "faker": "^4.1.0",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.5",
     "newrelic": "^5.7.0",

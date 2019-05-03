@@ -6,4 +6,4 @@ config:
 scenarios:
   - flow:
     - get:
-        url: "/api/stocks/{{$randomNumber(8000000, 10000000)}}"
+        url: "/stocks/{{$randomNumber(800000, 1000000)}}"

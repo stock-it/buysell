@@ -1,10 +1,10 @@
 config:
-  target: 'http://localhost:8080'
+  target: 'http://localhost:5000'
   phases:
-    - duration: 240
+    - duration: 120
       arrivalRate: 50
       rampTo: 800
-      name: "serve 'em up"
+      name: "Get and POST"
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
@@ -15,4 +15,4 @@ config:
 scenarios:
   - flow:
     - get:
-        url: "/{{ticker}}"
+        url: "http://localhost:5000/api/stocks/{{ticker}}"
